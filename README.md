@@ -1,0 +1,1 @@
+# terraform-coralogix-cloudwatch-integration
