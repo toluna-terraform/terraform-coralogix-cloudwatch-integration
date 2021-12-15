@@ -20,7 +20,7 @@ The module requires some pre conditions
 ## Usage
 ```hcl
 module "coralogix" {
-  source                      = "toluna-terraform/terraform-coralogix-cloudwatch-integration"
+  source                      = "toluna-terraform/cloudwatch-integration/coralogix"
   app_name                    = local.app_name
   loggroup_envs               = local.loggroup_envs
   region                      = "us-east-1"
