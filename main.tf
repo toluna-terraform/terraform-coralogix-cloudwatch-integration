@@ -85,18 +85,18 @@ resource "null_resource" "remove_zip" {
 }
 
 resource "aws_lambda_permission" "coralogix-allow-cloudwatch" {
-  for_each = toset(var.loggroup_envs)
-    statement_id  = "coralogix-allow-cloudwatch-${each.key}"
+  for_each = var.loggroup_envs
+    statement_id  = "coralogix-allow-cloudwatch-${each.value.name}"
     action        = "lambda:InvokeFunction"
     function_name = "${aws_lambda_function.coralogix.arn}"
     principal     = "logs.${var.region}.amazonaws.com"
-    source_arn    = data.aws_cloudwatch_log_group.coralogix[each.key].arn
+    source_arn    = "${each.value.arn}*"
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "coralogix" {
-  for_each = toset(var.loggroup_envs)
-    name            = "${each.key}"
-    log_group_name  = "${var.app_name}-${each.key}"
+  for_each = var.loggroup_envs
+    name            = "${each.value.name}"
+    log_group_name  = "${each.value.name}"
     filter_pattern  = ""
     destination_arn = aws_lambda_function.coralogix.arn
 }
