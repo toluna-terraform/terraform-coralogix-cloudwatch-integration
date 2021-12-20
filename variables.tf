@@ -5,7 +5,6 @@ variable "app_name" {
 
 variable "loggroup_envs" {
   description = "list of environment log groups"
-  type = list
 }
 
 variable "region" {
